@@ -22,41 +22,31 @@ class EPubReader(QMainWindow):
         self.textBrowser.verticalScrollBar().setVisible(False)
         self.setCentralWidget(self.textBrowser)
         self.current_file_path = ''
-
-        self.createToolBar()
         self.createMenu()
-
-    def createToolBar(self):
-        tool_bar = QToolBar('Toolbar')
-        self.addToolBar(tool_bar)
-
-        # Create a toggle theme action with a default label
-        self.toggle_theme_action = QAction(QIcon('icons/sun.png'), '', self)
-        self.toggle_theme_action.triggered.connect(self.toggleTheme)
-        tool_bar.addAction(self.toggle_theme_action)
-
-        # Assume light mode is the default; adjust as necessary
-        self.current_theme = 'dark'
 
     def toggleTheme(self):
         if self.current_theme == 'light':
             self.changeTheme('dark')
-            self.toggle_theme_action.setIcon(QIcon('icons/moon.png'))  # Moon emoji for dark mode
+            self.toggle_theme_action.setIcon(QIcon('icons/moon.png'))
+            self.toggle_theme_action.setText('Light Mode')
             self.current_theme = 'dark'
         else:
             self.changeTheme('light')
-            self.toggle_theme_action.setIcon(QIcon('icons/sun.png'))  # Sun emoji for light mode
+            self.toggle_theme_action.setIcon(QIcon('icons/sun.png'))
+            self.toggle_theme_action.setText('Dark Mode')
             self.current_theme = 'light'
-
-
-
+    
     def createMenu(self):
         menu = self.menuBar()
-
+        self.current_theme = 'dark'
         file_menu = menu.addMenu('File')
         open_file_action = QAction('Open File', self)
         open_file_action.triggered.connect(self.open_file)
         file_menu.addAction(open_file_action)
+
+        self.toggle_theme_action = QAction(QIcon('icons/moon.png'), 'Light Mode', self)
+        self.toggle_theme_action.triggered.connect(self.toggleTheme)
+        file_menu.addAction(self.toggle_theme_action)
 
         exit_action = QAction('Exit', self)
         exit_action.triggered.connect(self.close)
@@ -94,8 +84,6 @@ class EPubReader(QMainWindow):
             self.textBrowser.setStyleSheet("background-color: black; color: white;")
     
         QApplication.setPalette(palette)
-
-
 
     def display_file(self):
         if not self.current_file_path:
