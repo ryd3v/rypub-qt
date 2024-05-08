@@ -1,11 +1,23 @@
 import sys
+import os
 import ebooklib
 import base64
 from ebooklib import epub
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QPalette, QColor
-from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QMessageBox, QToolBar, QTextBrowser, QStyleFactory
+from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QMessageBox, QTextBrowser, QStyleFactory
 from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QFontDatabase, QFont
+
+def load_fonts_from_directory(directory):
+    for file_name in os.listdir(directory):
+        if file_name.endswith(".ttf") or file_name.endswith(".otf"):
+            font_path = os.path.join(directory, file_name)
+            font_id = QFontDatabase.addApplicationFont(font_path)
+            if font_id == -1:
+                print(f"Failed to load font at {font_path}")
+            else:
+                print(f"Loaded font at {font_path}")
 
 class EPubReader(QMainWindow):
     def __init__(self):
@@ -15,7 +27,7 @@ class EPubReader(QMainWindow):
     def initUI(self):
         QApplication.setStyle(QStyleFactory.create('Fusion'))
         self.setWindowTitle('EPub Reader')
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 800, 900)
 
         # ebup reader class
         self.textBrowser = QTextBrowser()
@@ -119,14 +131,18 @@ class EPubReader(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key.Key_Left:
-            # Turn page to the left
             pass
         elif event.key() == Qt.Key.Key_Right:
-            # Turn page to the right
             pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    fonts_directory = 'fonts'
+    load_fonts_from_directory(fonts_directory)
+    monospaced_font = QFont("JetBrainsMono-Regular")
+    monospaced_font.setPointSize(12)
+    roboto_font = QFont("Roboto-Regular")
+    app.setFont(roboto_font)
     reader = EPubReader()
     reader.show()
     sys.exit(app.exec())
