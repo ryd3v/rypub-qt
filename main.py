@@ -4,6 +4,7 @@ from ebooklib import epub
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QPalette, QColor
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QMessageBox, QToolBar, QTextBrowser, QStyleFactory
+from PyQt6.QtGui import QIcon
 
 class EPubReader(QMainWindow):
     def __init__(self):
@@ -29,13 +30,25 @@ class EPubReader(QMainWindow):
         tool_bar = QToolBar('Toolbar')
         self.addToolBar(tool_bar)
 
-        light_mode_action = QAction('Light Mode', self)
-        light_mode_action.triggered.connect(lambda: self.changeTheme('light'))
-        tool_bar.addAction(light_mode_action)
+        # Create a toggle theme action with a default label
+        self.toggle_theme_action = QAction(QIcon('icons/sun.png'), '', self)
+        self.toggle_theme_action.triggered.connect(self.toggleTheme)
+        tool_bar.addAction(self.toggle_theme_action)
 
-        dark_mode_action = QAction('Dark Mode', self)
-        dark_mode_action.triggered.connect(lambda: self.changeTheme('dark'))
-        tool_bar.addAction(dark_mode_action)
+        # Assume light mode is the default; adjust as necessary
+        self.current_theme = 'dark'
+
+    def toggleTheme(self):
+        if self.current_theme == 'light':
+            self.changeTheme('dark')
+            self.toggle_theme_action.setIcon(QIcon('icons/moon.png'))  # Moon emoji for dark mode
+            self.current_theme = 'dark'
+        else:
+            self.changeTheme('light')
+            self.toggle_theme_action.setIcon(QIcon('icons/sun.png'))  # Sun emoji for light mode
+            self.current_theme = 'light'
+
+
 
     def createMenu(self):
         menu = self.menuBar()
