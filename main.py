@@ -15,8 +15,10 @@ class EPubReader(QMainWindow):
         self.setWindowTitle('EPub Reader')
         self.setGeometry(100, 100, 800, 600)
 
+        # ebup reader class
         self.textBrowser = QTextBrowser()
         self.textBrowser.setReadOnly(True)
+        self.textBrowser.verticalScrollBar().setVisible(False)
         self.setCentralWidget(self.textBrowser)
         self.current_file_path = ''
 
@@ -60,14 +62,26 @@ class EPubReader(QMainWindow):
             palette.setColor(QPalette.ColorRole.WindowText, QColor(0, 0, 0))
             palette.setColor(QPalette.ColorRole.Base, QColor(255, 255, 255))
             palette.setColor(QPalette.ColorRole.Text, QColor(0, 0, 0))
+            palette.setColor(QPalette.ColorRole.Button, QColor(240, 240, 240))
+            palette.setColor(QPalette.ColorRole.ButtonText, QColor(0, 0, 0))
+            palette.setColor(QPalette.ColorRole.Highlight, QColor(0, 120, 215))
+            palette.setColor(QPalette.ColorRole.HighlightedText, QColor(255, 255, 255))
+
             self.textBrowser.setStyleSheet("background-color: white; color: black;")
         elif theme == 'dark':
             palette.setColor(QPalette.ColorRole.Window, QColor(53, 53, 53))
             palette.setColor(QPalette.ColorRole.WindowText, QColor(255, 255, 255))
             palette.setColor(QPalette.ColorRole.Base, QColor(35, 35, 35))
             palette.setColor(QPalette.ColorRole.Text, QColor(255, 255, 255))
+            palette.setColor(QPalette.ColorRole.Button, QColor(53, 53, 53))
+            palette.setColor(QPalette.ColorRole.ButtonText, QColor(255, 255, 255))
+            palette.setColor(QPalette.ColorRole.Highlight, QColor(42, 130, 218))
+            palette.setColor(QPalette.ColorRole.HighlightedText, QColor(0, 0, 0))
+
             self.textBrowser.setStyleSheet("background-color: black; color: white;")
+    
         QApplication.setPalette(palette)
+
 
 
     def display_file(self):
