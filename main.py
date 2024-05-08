@@ -1,5 +1,6 @@
 import sys
 import ebooklib
+import base64
 from ebooklib import epub
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QPalette, QColor
@@ -20,6 +21,7 @@ class EPubReader(QMainWindow):
         self.textBrowser = QTextBrowser()
         self.textBrowser.setReadOnly(True)
         self.textBrowser.verticalScrollBar().setVisible(False)
+        self.textBrowser.horizontalScrollBar().setVisible(False)
         self.setCentralWidget(self.textBrowser)
         self.current_file_path = ''
         self.createMenu()
@@ -90,10 +92,27 @@ class EPubReader(QMainWindow):
             return
         try:
             book = epub.read_epub(self.current_file_path)
-            html_content = ''
+            html_content = '<style>img { max-width: 100%; height: auto; }</style>'
+
+            # Dictionary to hold image data URLs
+            images_data_urls = {}
+
+            # Extract images and convert to data URLs
+            for item in book.get_items():
+                if isinstance(item, epub.EpubImage):
+                    image_data = item.get_content()
+                    # Create a Data URL
+                    data_url = 'data:image/{};base64,{}'.format(item.media_type, base64.b64encode(image_data).decode('utf-8'))
+                    images_data_urls[item.file_name] = data_url
+
+            # Process HTML content and update image src with data URLs
             for item in book.get_items():
                 if item.get_type() == ebooklib.ITEM_DOCUMENT:
-                    html_content += item.get_body_content().decode('utf-8')
+                    html = item.get_content().decode('utf-8')
+                    for original_path, data_url in images_data_urls.items():
+                        html = html.replace(original_path, data_url)
+                    html_content += html
+
             self.textBrowser.setHtml(html_content)
         except Exception as e:
             QMessageBox.critical(self, 'Error', str(e))
