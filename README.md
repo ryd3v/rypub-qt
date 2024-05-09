@@ -5,21 +5,23 @@ ryPub EPub Reader is a straightforward Python application designed to read ePub 
 ## Features
 
 - **Read EPub Files**: Open and read any ePub file with ease.
-- **Theme Toggling**: Switch between a light or dark theme according to your preference, for a comfortable reading experience.
+- **Theme Toggling**: Switch between a light or dark theme according to your preference for a comfortable reading experience.
 - **Embedded Fonts**: Custom fonts are utilized to improve readability.
 - **Image Handling**: Displays images embedded within ePub files correctly.
 - **Keyboard Navigation**: Navigate through the pages using keyboard shortcuts.
 
-#### Visit the [Releases](https://github.com/ryd3v/rypub-qt/releases) page for a pre-compiled executable.
+## Download
 
-### Build Prerequisites
+Visit the [Releases](https://github.com/ryd3v/rypub-qt/releases) page for a pre-compiled executable.
 
-To build ensure you have the following software installed on your system:
+## Getting Started
+
+These instructions will guide you on how to compile and run the project on your local machine for development and testing purposes. Ensure you have the following software installed on your system:
 
 - Python 3.6 or later
 - pip (Python package installer)
 
-### Build
+## Installation
 
 Clone the repository:
 
@@ -36,3 +38,11 @@ pip install -r requirements.txt
 - [PyQt6](https://pypi.org/project/PyQt6/) The GUI toolkit used
 
 - [EbookLib](https://pypi.org/project/EbookLib/) Library for reading and manipulating ePub files
+
+## Author
+
+- Ryan Collins
+
+## License
+
+This project is licensed under the MIT License see the LICENSE file for details.
