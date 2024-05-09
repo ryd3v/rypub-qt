@@ -45,4 +45,4 @@ pip install -r requirements.txt
 
 ## License
 
-This project is licensed under the MIT License see the LICENSE file for details.
+This project is licensed under the [MIT License](https://github.com/ryd3v/rypub-qt/blob/main/LICENSE) see the LICENSE file for details.
