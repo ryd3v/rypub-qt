@@ -1,6 +1,6 @@
 # ryPub EPub Reader
 
-ryPub EPub Reader is a simple, intuitive application designed to help you open and read ePub files on your computer. It offers theme switching capabilities, embedded font support, and image handling to enhance your reading experience. Continuous reading with vertical scrolling with your mouse wheel, or the up and down arrow keys.
+ryPub EPub Reader is a simple, intuitive application designed to read ePub files on your computer. It offers theme switching capabilities, embedded font support, and image handling to enhance your reading experience. Continuous reading with vertical scrolling with your mouse wheel, or the up and down arrow keys.
 
 ## Features
 
