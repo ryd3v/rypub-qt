@@ -23,8 +23,16 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/ryd3v/rypub-qt
+```
 
+```bash
 pip install -r requirements.txt
 ```
 
-Or visit the Releases page for a stand alone executable.
+#### _Visit the Releases page for a stand alone executable._
+
+## Built With
+
+- [PyQt6](https://pypi.org/project/PyQt6/) The GUI toolkit used
+
+- [EbookLib](https://pypi.org/project/EbookLib/) Library for reading and manipulating ePub files
