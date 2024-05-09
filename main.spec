@@ -9,8 +9,7 @@ a = Analysis(
     ('icon.ico', '.'),
     ('./Roboto-Regular.ttf', '.'),
     ('./JetBrainsMono-Regular.ttf', '.'),
-    ('./moon.png', '.'),
-    ('./sun.png', '.')
+    ('./bulb.png', '.')
     ],
     hiddenimports=[],
     hookspath=[],

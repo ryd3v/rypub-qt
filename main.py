@@ -28,8 +28,7 @@ def load_fonts_from_directory(directory):
                 print(f"Loaded font at {font_path}")
 
 icon = resource_path('icon.ico')
-moon_icon = resource_path('moon.png')
-sun_icon = resource_path('sun.png')
+bulb_icon = resource_path('bulb.png')
 
 class EPubReader(QMainWindow):
     def __init__(self):
@@ -54,12 +53,12 @@ class EPubReader(QMainWindow):
     def toggleTheme(self):
         if self.current_theme == 'light':
             self.changeTheme('dark')
-            self.toggle_theme_action = QAction(QIcon(resource_path(moon_icon)), 'Light Mode', self)
+            self.toggle_theme_action = QAction(QIcon(resource_path(bulb_icon)), 'Light Mode', self)
             self.toggle_theme_action.setText('Light Mode')
             self.current_theme = 'dark'
         else:
             self.changeTheme('light')
-            self.toggle_theme_action.setIcon(QIcon(resource_path(sun_icon)))
+            self.toggle_theme_action.setIcon(QIcon(resource_path(bulb_icon)))
             self.toggle_theme_action.setText('Dark Mode')
             self.current_theme = 'light'
     
@@ -71,7 +70,7 @@ class EPubReader(QMainWindow):
         open_file_action.triggered.connect(self.open_file)
         file_menu.addAction(open_file_action)
 
-        self.toggle_theme_action = QAction(QIcon(moon_icon), 'Light Mode', self)
+        self.toggle_theme_action = QAction(QIcon(bulb_icon), 'Light Mode', self)
         self.toggle_theme_action.triggered.connect(self.toggleTheme)
         file_menu.addAction(self.toggle_theme_action)
 
