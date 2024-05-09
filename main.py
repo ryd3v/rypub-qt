@@ -9,6 +9,14 @@ from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QMessageBox,
 from PyQt6.QtGui import QIcon
 from PyQt6.QtGui import QFontDatabase, QFont
 
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 def load_fonts_from_directory(directory):
     for file_name in os.listdir(directory):
         if file_name.endswith(".ttf") or file_name.endswith(".otf"):
@@ -19,14 +27,19 @@ def load_fonts_from_directory(directory):
             else:
                 print(f"Loaded font at {font_path}")
 
+icon = resource_path('icon.ico')
+moon_icon = resource_path('moon.png')
+sun_icon = resource_path('sun.png')
+
 class EPubReader(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowIcon(QIcon(resource_path(icon)))
         self.initUI()
 
     def initUI(self):
         QApplication.setStyle(QStyleFactory.create('Fusion'))
-        self.setWindowTitle('EPub Reader')
+        self.setWindowTitle('ryPub EReader')
         self.setGeometry(100, 100, 800, 900)
 
         # ebup reader class
@@ -41,12 +54,12 @@ class EPubReader(QMainWindow):
     def toggleTheme(self):
         if self.current_theme == 'light':
             self.changeTheme('dark')
-            self.toggle_theme_action.setIcon(QIcon('icons/moon.png'))
+            self.toggle_theme_action = QAction(QIcon(resource_path(moon_icon)), 'Light Mode', self)
             self.toggle_theme_action.setText('Light Mode')
             self.current_theme = 'dark'
         else:
             self.changeTheme('light')
-            self.toggle_theme_action.setIcon(QIcon('icons/sun.png'))
+            self.toggle_theme_action.setIcon(QIcon(resource_path(sun_icon)))
             self.toggle_theme_action.setText('Dark Mode')
             self.current_theme = 'light'
     
@@ -58,7 +71,7 @@ class EPubReader(QMainWindow):
         open_file_action.triggered.connect(self.open_file)
         file_menu.addAction(open_file_action)
 
-        self.toggle_theme_action = QAction(QIcon('icons/moon.png'), 'Light Mode', self)
+        self.toggle_theme_action = QAction(QIcon(moon_icon), 'Light Mode', self)
         self.toggle_theme_action.triggered.connect(self.toggleTheme)
         file_menu.addAction(self.toggle_theme_action)
 
@@ -106,18 +119,14 @@ class EPubReader(QMainWindow):
             book = epub.read_epub(self.current_file_path)
             html_content = '<style>img { max-width: 100%; height: auto; }</style>'
 
-            # Dictionary to hold image data URLs
             images_data_urls = {}
 
-            # Extract images and convert to data URLs
             for item in book.get_items():
                 if isinstance(item, epub.EpubImage):
                     image_data = item.get_content()
-                    # Create a Data URL
                     data_url = 'data:image/{};base64,{}'.format(item.media_type, base64.b64encode(image_data).decode('utf-8'))
                     images_data_urls[item.file_name] = data_url
 
-            # Process HTML content and update image src with data URLs
             for item in book.get_items():
                 if item.get_type() == ebooklib.ITEM_DOCUMENT:
                     html = item.get_content().decode('utf-8')
@@ -137,7 +146,7 @@ class EPubReader(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    fonts_directory = 'fonts'
+    fonts_directory = resource_path('.')
     load_fonts_from_directory(fonts_directory)
     monospaced_font = QFont("JetBrainsMono-Regular")
     monospaced_font.setPointSize(12)
