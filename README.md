@@ -10,6 +10,8 @@ ryPub EPub Reader is a simple, intuitive application designed to read ePub files
 - **Image Handling**: Displays images embedded within ePub files correctly.
 - **Keyboard Navigation**: Navigate through the pages using keyboard shortcuts.
 
+#### Visit the [Releases](https://github.com/ryd3v/rypub-qt/releases) page for a stand alone executable.
+
 ### Prerequisites
 
 To build ensure you have the following software installed on your system:
@@ -28,8 +30,6 @@ git clone https://github.com/ryd3v/rypub-qt
 ```bash
 pip install -r requirements.txt
 ```
-
-#### _Visit the Releases page for a stand alone executable._
 
 ## Built With
 
