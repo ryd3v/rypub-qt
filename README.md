@@ -1,6 +1,6 @@
 # ryPub EPub Reader
 
-ryPub EPub Reader is a simple, intuitive application designed to read ePub files on your computer. It offers theme switching capabilities, embedded font support, and image handling to enhance your reading experience. Continuous reading with vertical scrolling with your mouse wheel, or the up and down arrow keys.
+ryPub EPub Reader is a straightforward Python application designed to read ePub files on your computer. It offers theme switching, embedded font support, and image handling to enhance your reading experience. Enjoy continuous reading with vertical scrolling using your mouse wheel or the up and down arrow keys.
 
 ## Features
 
@@ -10,16 +10,16 @@ ryPub EPub Reader is a simple, intuitive application designed to read ePub files
 - **Image Handling**: Displays images embedded within ePub files correctly.
 - **Keyboard Navigation**: Navigate through the pages using keyboard shortcuts.
 
-#### Visit the [Releases](https://github.com/ryd3v/rypub-qt/releases) page for a stand alone executable.
+#### Visit the [Releases](https://github.com/ryd3v/rypub-qt/releases) page for a pre-compiled executable.
 
-### Prerequisites
+### Build Prerequisites
 
 To build ensure you have the following software installed on your system:
 
 - Python 3.6 or later
 - pip (Python package installer)
 
-### Building
+### Build
 
 Clone the repository:
 
