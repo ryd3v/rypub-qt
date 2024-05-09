@@ -86,16 +86,16 @@ class EPubReader(QMainWindow):
 
             self.textBrowser.setStyleSheet("background-color: white; color: black;")
         elif theme == 'dark':
-            palette.setColor(QPalette.ColorRole.Window, QColor(53, 53, 53))
+            palette.setColor(QPalette.ColorRole.Window, QColor(45, 45, 45))
             palette.setColor(QPalette.ColorRole.WindowText, QColor(255, 255, 255))
             palette.setColor(QPalette.ColorRole.Base, QColor(35, 35, 35))
             palette.setColor(QPalette.ColorRole.Text, QColor(255, 255, 255))
-            palette.setColor(QPalette.ColorRole.Button, QColor(53, 53, 53))
+            palette.setColor(QPalette.ColorRole.Button, QColor(45, 45, 45))
             palette.setColor(QPalette.ColorRole.ButtonText, QColor(255, 255, 255))
             palette.setColor(QPalette.ColorRole.Highlight, QColor(42, 130, 218))
             palette.setColor(QPalette.ColorRole.HighlightedText, QColor(0, 0, 0))
 
-            self.textBrowser.setStyleSheet("background-color: black; color: white;")
+            self.textBrowser.setStyleSheet("background-color: #2d2d2d; color: white;")
     
         QApplication.setPalette(palette)
 
