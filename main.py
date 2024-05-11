@@ -39,7 +39,7 @@ class EPubReader(QMainWindow):
     def initUI(self):
         QApplication.setStyle(QStyleFactory.create('Fusion'))
         self.setWindowTitle('ryPub EReader')
-        self.setGeometry(100, 100, 800, 900)
+        self.setGeometry(100, 100, 600, 800)
 
         # ebup reader class
         self.textBrowser = QTextBrowser()
