@@ -56,6 +56,7 @@ class EPubReader(QMainWindow):
         self.textBrowser.setReadOnly(True)
         self.textBrowser.verticalScrollBar().setVisible(False)
         self.textBrowser.horizontalScrollBar().setVisible(False)
+        self.textBrowser.setOpenExternalLinks(True)
         self.setCentralWidget(self.textBrowser)
         self.current_file_path = ""
         self.createMenu()
