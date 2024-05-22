@@ -43,20 +43,19 @@ bulb_icon = resource_path("bulb.png")
 class EPubReader(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon(resource_path(icon)))
+        self.setWindowIcon(QIcon(icon))
         self.initUI()
 
     def initUI(self):
         QApplication.setStyle(QStyleFactory.create("Fusion"))
-        self.setWindowTitle("ryPub EReader")
+        self.setWindowTitle("ryPub EPub Reader")
         self.setGeometry(100, 100, 600, 800)
 
-        # ebup reader class
         self.textBrowser = QTextBrowser()
         self.textBrowser.setReadOnly(True)
+        self.textBrowser.setOpenExternalLinks(True)
         self.textBrowser.verticalScrollBar().setVisible(False)
         self.textBrowser.horizontalScrollBar().setVisible(False)
-        self.textBrowser.setOpenExternalLinks(True)
         self.setCentralWidget(self.textBrowser)
         self.current_file_path = ""
         self.createMenu()
@@ -132,14 +131,14 @@ class EPubReader(QMainWindow):
         try:
             book = epub.read_epub(self.current_file_path)
             html_content = "<style>img { max-width: 100%; height: auto; }</style>"
-
             images_data_urls = {}
 
             for item in book.get_items():
                 if isinstance(item, epub.EpubImage):
                     image_data = item.get_content()
                     data_url = "data:image/{};base64,{}".format(
-                        item.media_type, base64.b64encode(image_data).decode("utf-8")
+                        item.media_type.split("/")[-1],
+                        base64.b64encode(image_data).decode("utf-8"),
                     )
                     images_data_urls[item.file_name] = data_url
 
@@ -165,9 +164,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     fonts_directory = resource_path(".")
     load_fonts_from_directory(fonts_directory)
+    roboto_font = QFont("Roboto-Regular")
     monospaced_font = QFont("JetBrainsMono-Regular")
     monospaced_font.setPointSize(12)
-    roboto_font = QFont("Roboto-Regular")
     app.setFont(roboto_font)
     reader = EPubReader()
     reader.show()
