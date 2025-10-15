@@ -57,6 +57,15 @@ class EPubReader(QMainWindow):
         self.textBrowser.verticalScrollBar().setVisible(False)
         self.textBrowser.horizontalScrollBar().setVisible(False)
         self.setCentralWidget(self.textBrowser)
+
+        # === Font Zoom Feature ===
+        self.default_font = QFont("Roboto-Regular", 14)
+        self.textBrowser.setFont(self.default_font)
+        self.current_font_size = 14
+        self.min_font_size = 8
+        self.max_font_size = 48
+        # ==========================
+
         self.current_file_path = ""
         self.createMenu()
 
@@ -153,20 +162,57 @@ class EPubReader(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", str(e))
 
+    # === Font Zoom Feature ===
+    def increase_font_size(self):
+        if self.current_font_size < self.max_font_size:
+            self.current_font_size += 1
+            font = self.textBrowser.font()
+            font.setPointSize(self.current_font_size)
+            self.textBrowser.setFont(font)
+
+    def decrease_font_size(self):
+        if self.current_font_size > self.min_font_size:
+            self.current_font_size -= 1
+            font = self.textBrowser.font()
+            font.setPointSize(self.current_font_size)
+            self.textBrowser.setFont(font)
+    # ==========================
+
     def keyPressEvent(self, event):
+    # === Ctrl + Plus / Minus Font Resize ===
+        key_text = event.text() or ""  # Always defined, even if empty string
+
+        if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            if key_text == '+' or event.key() in (Qt.Key.Key_Plus, Qt.Key.Key_Equal):
+                self.increase_font_size()
+            return
+        elif key_text == '-' or event.key() == Qt.Key.Key_Minus:
+            self.decrease_font_size()
+            return
+        elif event.key() in (Qt.Key.Key_Plus, Qt.Key.Key_Equal):
+            self.increase_font_size()
+            return
+        elif event.key() == Qt.Key.Key_Minus:
+            self.decrease_font_size()
+            return
+    # ========================================
+
         if event.key() == Qt.Key.Key_Left:
             pass
         elif event.key() == Qt.Key.Key_Right:
             pass
 
 
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     fonts_directory = resource_path(".")
     load_fonts_from_directory(fonts_directory)
-    roboto_font = QFont("Roboto-Regular")
+    roboto_font = QFont("Roboto")
     monospaced_font = QFont("JetBrainsMono-Regular")
-    monospaced_font.setPointSize(12)
+    monospaced_font.setPointSize(14)
+    roboto_font.setPointSize(14)
     app.setFont(roboto_font)
     reader = EPubReader()
     reader.show()
